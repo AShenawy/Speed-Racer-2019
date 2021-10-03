@@ -20,9 +20,9 @@ public class SpeedRacer : MonoBehaviour
 
     CheakWeight()
         {
-         if{
-            carWeight < 1500;
-            print("The"carModel" weighs less than 1500kg.");
+        if(carWeight < 1500)
+            {
+             print("The"carModel" weighs less than 1500kg.");
             }
           else
             {
@@ -37,13 +37,13 @@ public class SpeedRacer : MonoBehaviour
 
     CheckCharacteristics()
     {
-      if{
-          isCarTypeSedan=true;
+      if(isCarTypeSedan = true)
+        {
           print("The Car type is a sedan");
         }
-      else if{
-              hasFrontEngine = true;
-              print("The Car type is not a sedan but has a front engine");         
+      else if(hasFrontEngine = true)
+            {
+             print("The Car type is not a sedan but has a front engine");         
              }
       else{
             print("The car is neither a sedan nor does it have a front engine.");
@@ -55,9 +55,8 @@ public class SpeedRacer : MonoBehaviour
     {
         print("The Car model is "carModel"and the engine Type is"engineType);
         print(CheckWeight);
-        if
+        if(yearMade <= 2009)
           {
-            yearMade<=2009;
             print("The Car was introduced in "yearMade);
           }
         CalculateAge()
