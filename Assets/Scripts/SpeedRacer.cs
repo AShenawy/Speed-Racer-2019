@@ -8,7 +8,7 @@ public class SpeedRacer : MonoBehaviour
     string engineType = "V6, Twin Turbo";
     int carWeight = 1609;
     int yearMade = 2009;
-    decimal maxAcceleration = 0.98;
+    float maxAcceleration = 0.98f;
     bool isCarTypeSedan = false;
     bool hasFrontEngine = true;
 
@@ -22,12 +22,13 @@ public class SpeedRacer : MonoBehaviour
         {
         if(carWeight < 1500)
             {
-             print("The"carModel" weighs less than 1500kg.");
+             print("The " + carModel + " weighs less than 1500 kg.");
             }
           else
             {
-              print("The"carModel" weighs over than 1500kg.");
+              print("The " + carModel + " weighs more than 1500 kg.");
             }
+            
         }
     
     CalculateAge()
@@ -39,32 +40,33 @@ public class SpeedRacer : MonoBehaviour
     {
       if(isCarTypeSedan = true)
         {
-          print("The Car type is a sedan");
+          Console.WriteLine("The Car type is a sedan");
         }
       else if(hasFrontEngine = true)
             {
-             print("The Car type is not a sedan but has a front engine");         
+             Console.WriteLine("The Car type is not a sedan but has a front engine");         
              }
       else{
-            print("The car is neither a sedan nor does it have a front engine.");
+            Console.WriteLine("The car is neither a sedan nor does it have a front engine.");
           }
+          
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        print("The Car model is "carModel"and the engine Type is"engineType);
-        print(CheckWeight);
+        Console.WriteLine("The Car model is " + carModel +" and the engine Type is " + engineType +);
+        Console.WriteLine(CheckWeight);
         if(yearMade <= 2009)
           {
-            print("The Car was introduced in "yearMade);
+            Console.WriteLine("The Car was introduced in 2009");
           }
-        CalculateAge()
+        CalculateAge();
         {
-        print("The age of the car is "carAge);
+        Console.WriteLine("The age of the car is " + carAge);
         }
-        print("The maximum acceleration of the car is"maxAcceleration);  
-        print(CheckCharacteristics);
+        Console.WriteLine("The maximum acceleration of the car is" + maxAcceleration);  
+        Console.WriteLine(CheckCharacteristics);
         
     }
 
