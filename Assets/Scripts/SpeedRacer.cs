@@ -12,42 +12,37 @@ public class SpeedRacer : MonoBehaviour
     bool isCarTypeSedan = false;
     bool hasFrontEngine = true;
 
-    // Created functions
-    int CheckWeight;
-    int CalculateAge;
-    int carAge;
-    string CheckCharacteristics;
-
-    CheakWeight()
-        {
-        if(carWeight < 1500)
-            {
-             print("The " + carModel + " weighs less than 1500 kg.");
-            }
-          else
-            {
-              print("The " + carModel + " weighs more than 1500 kg.");
-            }
-            
-        }
     
-    CalculateAge()
+    
+    void CheckWeight()
     {
-      carAge=2021-yearMade;
+         if (carWeight < 1500)
+        {
+            print("The " + carModel + " weighs less than 1500 kg.");
+        }
+        else
+        {
+            print("The " + carModel + " weighs more than 1500 kg.");
+        }
+    }
+    
+    int CalculateAge(int yearMade)
+    {
+      return 2021-yearMade;
     }
 
-    CheckCharacteristics()
+    string CheckCharacteristics()
     {
-      if(isCarTypeSedan = true)
+      if(isCarTypeSedan)
         {
-          Console.WriteLine("The Car type is a sedan");
+          return ("The Car type is a sedan");
         }
-      else if(hasFrontEngine = true)
+      else if(hasFrontEngine)
             {
-             Console.WriteLine("The Car type is not a sedan but has a front engine");         
+             return ("The Car type is not a sedan but has a front engine");         
              }
       else{
-            Console.WriteLine("The car is neither a sedan nor does it have a front engine.");
+            return ("The car is neither a sedan nor does it have a front engine.");
           }
           
     }
@@ -55,18 +50,27 @@ public class SpeedRacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Console.WriteLine("The Car model is " + carModel +" and the engine Type is " + engineType +);
-        Console.WriteLine(CheckWeight);
-        if(yearMade <= 2009)
-          {
-            Console.WriteLine("The Car was introduced in 2009");
-          }
-        CalculateAge();
+       print("The racer model is " + carModel + ". It has a " + engineType + " engine.");
+
+       CheckWeight();
+
+        if (yearMade <= 2009)
         {
-        Console.WriteLine("The age of the car is " + carAge);
+            print("It was first introduced in the year " + yearMade);
+            
+            int carAge;
+
+            carAge = CalculateAge(yearMade);
+
+            print("That makes the car " + carAge + " years old.");
+
+        } else
+        {
+            print("It was introduced in the 2010");
+            print("And the maximum acceleration is " + maxAcceleration + " miles per second.");
         }
-        Console.WriteLine("The maximum acceleration of the car is" + maxAcceleration);  
-        Console.WriteLine(CheckCharacteristics);
+
+        print(CheckCharacteristics());
         
     }
 
