@@ -4,13 +4,72 @@ using UnityEngine;
 
 public class SpeedRacer : MonoBehaviour
 {
-    string carModel    = "GTR R35";
-    string engineType  = "V6, Twin Turbo";
-    int carWeight      = 1609;
-    int yearMade       = 2009;
-    float maxAcceleration = 0.98f;
-    bool isCarTypeSedan = false;
-    bool hasFrontEngine = true;
+    //2nd assignment add public
+    public string carModel    = "GTR R35";
+    public string engineType  = "V6, Twin Turbo";
+    public int carWeight      = 1609;
+    public int yearMade       = 2009;
+    public float maxAcceleration = 0.98f;
+    public bool isCarTypeSedan = false;
+    public bool hasFrontEngine = true;
+
+    //2nd Assignment
+    //Number 1
+    //string carMaker;
+    //Number 2
+    public string carMaker;
+
+    public class Fueal 
+    {
+       public int fuelLevel;
+
+        public Fueal (int amount)
+        {
+            fuelLevel = amount;
+        }
+    }
+    //Number 2
+    public Fueal carFuel = new Fueal(100);
+
+    //assignment 2 number 1
+    void ConsumeFuel()
+    {
+        carFuel.fuelLevel = carFuel.fuelLevel - 10;
+    }
+
+    void CheckFuelLevel()
+    {
+        switch (carFuel.fuelLevel)
+        {
+            case 70:
+                print("fuel level is in twothirds");
+                break;
+
+            case 50:
+                print("fuel level is at half amount.");
+                break;
+
+            case 10:
+                print("Warning! Fuel level is critically low.");
+                break;
+
+            default:
+                print("Nothing to report.");
+                break;
+
+        }
+    }
+    //Number4 update Done
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ConsumeFuel();
+            CheckFuelLevel();
+        }
+    }
+
 
     //Number 1 Assignment.
     void Start()
