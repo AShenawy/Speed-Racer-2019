@@ -1,6 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+
 
 public class SpeedRacer : MonoBehaviour
 {
@@ -12,6 +15,9 @@ public class SpeedRacer : MonoBehaviour
     public bool isCarTypeSedan = false;
     public bool hasFrontEngine = true;
     public string carMaker;
+    public string carInfo;
+    public Button CheckFuelBtn;
+    public Text txtMmy;
     public class Fuel
         {
         public int fuelLevel;
@@ -23,7 +29,7 @@ public class SpeedRacer : MonoBehaviour
     
     public Fuel carFuel = new Fuel(100);
     
-    void CheckWeight()
+    public void CheckWeight()
     {
          if (carWeight < 1500)
         {
@@ -35,12 +41,12 @@ public class SpeedRacer : MonoBehaviour
         }
     }
     
-    int CalculateAge(int yearMade)
+    public int CalculateAge(int yearMade)
     {
       return 2021-yearMade;
     }
 
-    string CheckCharacteristics()
+    public string CheckCharacteristics()
     {
       if(isCarTypeSedan)
         {
@@ -56,9 +62,28 @@ public class SpeedRacer : MonoBehaviour
           
     }
 
+    
+
     // Start is called before the first frame update
-    void Start()
+   public void Start()
     {
+        // New Code Starts here
+            Text txtMy = GameObject.Find ("Canvas/Text").GetComponent<Text>();
+            txtMy.text = ("The racer model is " + carModel + " The car maker is" + carMaker + " It has a " + engineType + " engine." + CheckCharacteristics());
+            
+            txtMmy = GameObject.Find ("Canvas/Fuel").GetComponent<Text>();
+         // New Code Ends here
+        
+        //New Code For Button Starts here
+           Button btn = CheckFuelBtn.GetComponent<Button>(); 
+           CheckFuelBtn.onClick.AddListener(MoveCar);  
+
+           //txtMmy = GameObject.Find ("Canvas/Fuel").GetComponent<Text>();
+           //txtMmy.text = (MoveCar());
+            
+        
+        //New Code For Button Ends here 
+
        print("The racer model is " + carModel + "The car maker is" + carMaker + ". It has a " + engineType + " engine.");
 
        CheckWeight();
@@ -83,37 +108,46 @@ public class SpeedRacer : MonoBehaviour
         
     }
 
-    void ConsumeFuel()
+    public void ConsumeFuel()
     {
         carFuel.fuelLevel = carFuel.fuelLevel - 10;
     }
 
-    void CheckFuelLevel()
+    public void CheckFuelLevel()
     {
+        print(carFuel.fuelLevel);
+        
         switch (carFuel.fuelLevel)
         {
             case 70:
-                print("The Fuel level is now nearing two-thirds.");
+                txtMmy.text = "The Fuel level is now nearing two-thirds.";
                 break;
             case 50:
-                print("The Fuel level is now at half the amount.");
+                txtMmy.text ="The Fuel level is now at half the amount.";
                 break;
             case 10:
-                print("WARNING!!! The Fuel level is now critically low.");
+               txtMmy.text ="WARNING!!! The Fuel level is now critically low.";
                 break;
             default:
-                print("Nothing to Report !");
+               print("Nothing to Report !");
                 break;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+   public void MoveCar()               //For Button Click
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        ConsumeFuel();
+        CheckFuelLevel();
+    }
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))    //  (Input.GetKeyDown(KeyCode.Space))
         {
-            ConsumeFuel();
-            CheckFuelLevel();
+           ConsumeFuel();
+           CheckFuelLevel();
         }
     }
     
