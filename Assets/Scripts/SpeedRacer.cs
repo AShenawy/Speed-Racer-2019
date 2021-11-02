@@ -1,152 +1,167 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpeedRacer : MonoBehaviour
 {
-    //2nd assignment add public
-    public string carModel    = "GTR R35";
-    public string engineType  = "V6, Twin Turbo";
-    public int carWeight      = 1609;
-    public int yearMade       = 2009;
-    public float maxAcceleration = 0.98f;
-    public bool isCarTypeSedan = false;
-    public bool hasFrontEngine = true;
-
-    //2nd Assignment
-    //Number 1
-    //string carMaker;
-    //Number 2
     public string carMaker;
 
-    public class Fueal 
-    {
-       public int fuelLevel;
+    public string carModel = "GTR R35";
 
-        public Fueal (int amount)
+    public string engineType = "V6, Twin Turbo";
+
+    public int carWeight = 1609;
+
+    public int yearMade = 2009;
+
+    public float maxAcceleration = 0.98f;
+
+    public bool isCarTypeSedan = false;
+
+    public bool hasFrontEngine = true;
+
+    public Fuel carFuel = new Fuel(100);
+
+
+
+    string carFuelMessage = null;
+
+    //sub class
+    public class Fuel
+    {
+        public int fuelLevel;
+
+        //constructor
+        public Fuel(int amount)
         {
             fuelLevel = amount;
         }
     }
-    //Number 2
-    public Fueal carFuel = new Fueal(100);
 
-    //assignment 2 number 1
-    void ConsumeFuel()
-    {
-        carFuel.fuelLevel = carFuel.fuelLevel - 10;
-    }
-
-    void CheckFuelLevel()
-    {
-        switch (carFuel.fuelLevel)
-        {
-            case 70:
-                print("fuel level is in twothirds");
-                break;
-
-            case 50:
-                print("fuel level is at half amount.");
-                break;
-
-            case 10:
-                print("Warning! Fuel level is critically low.");
-                break;
-
-            default:
-                print("Nothing to report.");
-                break;
-
-        }
-    }
-    //Number4 update Done
     void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ConsumeFuel();
-            CheckFuelLevel();
+            //CheckFuelLevel();
         }
     }
 
+    //instance
+    
 
-    //Number 1 Assignment.
-    void Start()
+    public void Start()
     {
-        print("The new car model is like " + carModel + ". And the engine type should be " + engineType + " engine.");
+        Text carInfoText = GameObject.Find("CarInfoText").GetComponent<Text>();
 
-        //call second function carWeightFunction
-        CheckWeight();
+        carInfoText.text = CarIntroduction() + CheckWeight() + CarInfo() + CheckCharacteristics();
 
-
-        //Number 4Assignments
-        if (yearMade <= 2009)
-        {
-            //4.a Assignment
-            print("The car was introduced in first " + yearMade);
-
-            //4.b Assignment
-            int carAge = CalculateAge(yearMade);
-
-            //4.c Assignment
-            print("That makes it " + carAge + " years old.");
-
-        }
-        else
-        {
-            print("The car first introduced in the 2010's");
-            print("And the  maximum acceleration is " + maxAcceleration + " m/s2");
-        }
-
-        print(CheckCharacteristics());
-
+        print(carInfoText.text);
     }
 
 
-    //Number 2 Assignment
-    void CheckWeight()
+    public string CarIntroduction()
+    {
+        return "The car model is " + carModel + " created by " + carMaker + ". And the engine type is " + engineType + ".\n";
+    }
+
+    public string CheckWeight()
     {
         if (carWeight < 1500)
         {
-            print("The car named" + carModel + " is weight less than 1500 kg.");
+            return "The " + carModel + " weighs less than 1500 kg.\n";
         }
         else
         {
-            print("The car named " + carModel + " weight is more than over 1500 kg.");
+            return "The " + carModel + " weighs over 1500 kg.\n";
         }
     }
 
-    //Number 3 Assignments
-    int CalculateAge(int yearMade)
+    public string CarInfo()
+    {
+        if (yearMade <= 2009)
+        {
+            int carAge = CalculateAge(yearMade);
+            string carInfoMessage1 = "The car was introduced in " + yearMade + ".\n" + "The age of the car is " + carAge + ".\n";
+            return carInfoMessage1;
+        }
+        else
+        {
+            string carInfoMessage2 = "The car was introduced in the 2010s.\n" + "The cars maximum acceleration is " + maxAcceleration + ".\n";
+            return carInfoMessage2;
+        }
+    }
+
+    public int CalculateAge(int yearMade)
     {
         return 2021 - yearMade;
     }
 
-
-    //Number 5 Assignments
-    string CheckCharacteristics()
+    public string CheckCharacteristics()
     {
-        
-        if (isCarTypeSedan)
-        {
-            return "The car is  sedan.";
 
-        }
-        else if (hasFrontEngine)
+        if (isCarTypeSedan == true)
         {
-            return "The car is not a sedan, it is a front engine.";
-
+            return "The car type is a sedan.\n";
         }
         else
         {
-            return "The car is a front engine.";
+            if (hasFrontEngine == true)
+            {
+                return "The car isnt a sedan, but has a front engine.\n";
+            }
+            else
+            {
+                return "The car is neither a sedan nor does it have a front engine.\n";
+            }
         }
     }
 
+    public void ConsumeFuel()
+    {
+        carFuel.fuelLevel = carFuel.fuelLevel - 10;
+    }
 
+    public void CheckFuelLevel()
+    {
+        switch (carFuel.fuelLevel)
+        {
+            case 70:
+                carFuelMessage = "Fuel level is nearing two-thirds.\n";
+                print(carFuelMessage);
+                break;
 
+            case 50:
+                carFuelMessage = "Fuel level is at half amount.\n";
+                print(carFuelMessage);
+                break;
 
+            case 10:
+                carFuelMessage = "Warning! Fuel level is critically low.\n";
+                print(carFuelMessage);
+                break;
 
+            default:
+                carFuelMessage = "Theres nothing to report.\n";
+                print(carFuelMessage);
+                break;
+        }
+    }
 
+    public void OnButtonClick()
+    {
+        ConsumeFuel();
+
+        CheckFuelLevel();
+
+        //Start();
+
+        //CheckCharacteristics();
+
+        Text carFuelLevel = this.gameObject.GetComponent<Text>();
+
+        carFuelLevel.text = carFuelMessage;
+    }
 }
